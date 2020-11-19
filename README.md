@@ -43,17 +43,13 @@ server {
 
   listen 80;
   server_name {YOUR_URL};
-
 ```
 ```
-
   location / {
     return 301 https://{DOMAIN_NAME};
   }
-
 ```
 ```
-
   server_name {DOMAIN_NAME};
   ssl_certificate /etc/letsencrypt/live/{DOMAIN_NAME}/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/{DOMAIN_NAME}/privkey.pem;
@@ -65,7 +61,6 @@ server {
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header    X-Forwarded-For     "$proxy_add_x_forwarded_for";
 }
-
 ```
 4. Lancer la commande pour exécuter les containers:
 ```
