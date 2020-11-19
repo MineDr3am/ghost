@@ -20,3 +20,51 @@ cd ghost
 ```
 vim docker-compose.yml
 ```
+```
+#Dans ghost
+environment:
+      url: {YOUR_URL}
+      VIRTUAL_HOST: {YOUR_URL}
+      LETSENCRYPT_HOST: {YOUR_URL}
+      LETSENCRYPT_EMAIL: {YOUR_EMAIL}
+#[...]
+#Dans nginx-letsencrypt
+environment:
+  DEFAULT_EMAIL: {YOUR_EMAIL}
+```
+3. Modifier le fichier nginx.conf présent dans le dossier nginx:
+```
+vim /nginx/nginx.conf
+```
+
+```
+server {
+
+  listen 80;
+  server_name {YOUR_URL};
+
+  [...]
+
+  location / {
+    return 301 https://{DOMAIN_NAME};
+  }
+
+  [...]
+
+  server_name {DOMAIN_NAME};
+  ssl_certificate /etc/letsencrypt/live/{DOMAIN_NAME}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{DOMAIN_NAME}/privkey.pem;
+  location / {
+      proxy_pass http://ghost:2368/;
+      proxy_set_header Host "{DOMAIN_NAME}";
+      proxy_set_header    Host                "{DOMAIN_NAME}";
+      proxy_set_header    X-Real-IP           "$remote_addr";
+      proxy_set_header X-Forwarded-Proto https;
+      proxy_set_header    X-Forwarded-For     "$proxy_add_x_forwarded_for";
+}
+
+```
+4. Lancer la commande pour exécuter les containers:
+```
+docker-compose up -d
+```
