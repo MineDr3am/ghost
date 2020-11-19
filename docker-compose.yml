@@ -13,7 +13,7 @@ services:
       url: https://hugolausenazpire.fr
       VIRTUAL_HOST: hugolausenazpire.fr
       LETSENCRYPT_HOST: hugolausenazpire.fr
-      LETSENCRYPT_EMAIL: pro@hugolausenazpire.fr 
+      LETSENCRYPT_EMAIL: pro@hugolausenazpire.fr
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -28,6 +28,7 @@ services:
       - certs:/etc/nginx/certs
       - vhost.d:/etc/nginx/vhost.d
       - html:/etc/nginx/html
+      - dhparam:/etc/nginx/dhparam
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -36,6 +37,7 @@ services:
     volumes_from:
       - nginx-proxy
     volumes:
+      - certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       DEFAULT_EMAIL: pro@hugolausenazpire.fr
@@ -44,3 +46,4 @@ volumes:
   certs:
   vhost:
   html:
+  dhparam:
