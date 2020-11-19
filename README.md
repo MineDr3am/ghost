@@ -27,7 +27,8 @@ environment:
       VIRTUAL_HOST: {YOUR_URL}
       LETSENCRYPT_HOST: {YOUR_URL}
       LETSENCRYPT_EMAIL: {YOUR_EMAIL}
-#[...]
+```
+```
 #Dans nginx-letsencrypt
 environment:
   DEFAULT_EMAIL: {YOUR_EMAIL}
@@ -43,13 +44,15 @@ server {
   listen 80;
   server_name {YOUR_URL};
 
-  [...]
+```
+```
 
   location / {
     return 301 https://{DOMAIN_NAME};
   }
 
-  [...]
+```
+```
 
   server_name {DOMAIN_NAME};
   ssl_certificate /etc/letsencrypt/live/{DOMAIN_NAME}/fullchain.pem;
