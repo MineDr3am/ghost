@@ -34,16 +34,18 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt
     restart: always
-    volumes_from:
-      - nginx-proxy
     volumes:
       - certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - vhost.d:/etc/nginx/vhost.d
+      - html:/etc/nginx/html
+      - dhparam:/etc/nginx/dhparam
     environment:
       DEFAULT_EMAIL: pro@hugolausenazpire.fr
 
-  volumes:
-    certs:
-    vhost:
-    html:
-    dhparam:
+volumes:
+  certs:
+  vhost:
+  html:
+  dhparam:
