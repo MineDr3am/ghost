@@ -46,6 +46,6 @@ services:
 
 volumes:
   certs:
-  vhost:
+  vhost.d:
   html:
   dhparam:
