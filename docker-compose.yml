@@ -42,8 +42,8 @@ services:
     environment:
       DEFAULT_EMAIL: pro@hugolausenazpire.fr
 
-volumes:
-  certs:
-  vhost:
-  html:
-  dhparam:
+  volumes:
+    certs:
+    vhost:
+    html:
+    dhparam:
