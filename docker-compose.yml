@@ -8,6 +8,13 @@ services:
     container_name: ghost
     restart: always
     ports:
-      - 8080:2368
+      - 2368:2368
     environment:
       url: http://hugolausenazpire.fr
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.socks:/tmp/docker.sock:ro
