@@ -7,14 +7,14 @@ services:
     image: ghost:3-alpine
     restart: always
     ports:
-      - 2368:2368
+      - 8080:2368
     environment:
       database__client: mysql
       database__connection__host: db
       database__connection__user: root
       database__connection__password: example
       database__connection__database: ghost
-      url: http://hugolausenazpire.fr
+      url: http://46.101.102.214:8080
   db:
     image: mysql:5.7
     restart: always
