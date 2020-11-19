@@ -23,13 +23,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - certs:/etc/nginx/certs
-      - vhost.d:/etc/nginx/vhost.d
-      - html:/etc/nginx/html
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
       - dhparam:/etc/nginx/dhparam
-    label: 'com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy'
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -38,13 +39,19 @@ services:
     volumes_from:
       - nginx-proxy
     volumes:
-      - certs:/etc/nginx/certs:rw
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - dhparam:/etc/nginx/dhparam:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       DEFAULT_EMAIL: pro@hugolausenazpire.fr
 
 volumes:
-  certs:
-  vhost.d:
-  html:
-  dhparam:
+    ghost-images:
+    ghost-mysql:
+    conf:
+    vhost:
+    html:
+    certs:
+    dhparam:
