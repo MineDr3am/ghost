@@ -34,8 +34,7 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt
     restart: always
-    volumes-from:
-      - nginx-proxy
+    volumes-from: nginx-proxy
     volumes:
       - certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/tmp/docker.sock:ro
