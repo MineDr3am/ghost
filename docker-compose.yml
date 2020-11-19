@@ -46,8 +46,6 @@ services:
       DEFAULT_EMAIL: pro@hugolausenazpire.fr
 
 volumes:
-    ghost-images:
-    ghost-mysql:
     conf:
     vhost:
     html:
