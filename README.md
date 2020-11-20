@@ -16,9 +16,9 @@ Aller dans le dossier:
 ```
 cd ghost
 ```
-2. Modifier le fichier docker-compose.yml avec ses informations personnelles:
+2. Modifier le fichier d'environnements .env avec ses informations personnelles:
 ```
-vim docker-compose.yml
+vim .env
 ```
 ```
 #Dans ghost
