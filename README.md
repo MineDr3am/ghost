@@ -22,15 +22,12 @@ vim docker-compose.yml
 ```
 ```
 #Dans ghost
-environment:
       url: {YOUR_URL}
       VIRTUAL_HOST: {YOUR_URL}
       LETSENCRYPT_HOST: {YOUR_URL}
       LETSENCRYPT_EMAIL: {YOUR_EMAIL}
 ```
 ```
-#Dans nginx-letsencrypt
-environment:
   DEFAULT_EMAIL: {YOUR_EMAIL}
 ```
 3. Modifier le fichier nginx.conf présent dans le dossier nginx:

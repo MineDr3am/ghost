@@ -10,10 +10,10 @@ services:
     ports:
       - 2368:2368
     environment:
-      url: https://{YOUR_DOMAIN}
-      VIRTUAL_HOST: {YOUR_DOMAIN}
-      LETSENCRYPT_HOST: {YOUR_DOMAIN}
-      LETSENCRYPT_EMAIL: {YOUR_EMAIL}
+      url: "${URL}"
+      VIRTUAL_HOST: "${DOMAIN_NAME}"
+      LETSENCRYPT_HOST: "${DOMAIN_NAME}"
+      LETSENCRYPT_EMAIL: "${EMAIL}"
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -43,7 +43,7 @@ services:
       - dhparam:/etc/nginx/dhparam:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      DEFAULT_EMAIL: {YOUR_EMAIL}
+      DEFAULT_EMAIL: "${EMAIL}"
 
 volumes:
     conf:
