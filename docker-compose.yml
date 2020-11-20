@@ -1,0 +1,53 @@
+version: "3"
+
+networks:
+  ghost_network:
+services:
+  ghost:
+    image: ghost:3-alpine
+    container_name: ghost
+    restart: always
+    ports:
+      - 2368:2368
+    environment:
+      url: https://hugolausenazpire.fr
+      VIRTUAL_HOST: hugolausenazpire.fr
+      LETSENCRYPT_HOST: hugolausenazpire.fr
+      LETSENCRYPT_EMAIL: pro@hugolausenazpire.fr
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - dhparam:/etc/nginx/dhparam
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+
+  nginx-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    restart: always
+    volumes:
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - dhparam:/etc/nginx/dhparam:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DEFAULT_EMAIL: pro@hugolausenazpire.fr
+
+volumes:
+    conf:
+    vhost:
+    html:
+    certs:
+    dhparam:
