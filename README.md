@@ -2,7 +2,7 @@
 
 Il s'agit d'un projet permettant de déployer un blog Ghost tournant grâce au proxy nginx et permettant l'automatisation de certificats, le tout tournant sur Docker.
 Résultat est présent sur _https://hugolausenazpire.fr_
-**Un grand merci à @FredPi17 pour son aide sur ce projet**
+**Un grand merci à [@FredPi17](https://github.com/FredPi17) pour son aide sur ce projet**
 
 ## Nouvelles fonctionnalitées
 - Ajout du container Let's Encrypt permettant le TLS et donc du https
