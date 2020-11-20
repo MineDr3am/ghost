@@ -10,7 +10,7 @@ services:
     ports:
       - 2368:2368
     env_file:
-     - ./.secrets/.env
+     - .secrets/.env
     environment:
       url: "${URL}"
       VIRTUAL_HOST: "${DOMAIN_NAME}"
@@ -45,7 +45,7 @@ services:
       - dhparam:/etc/nginx/dhparam:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file:
-     - ./.secrets/.env
+     - .secrets/.env
     environment:
       DEFAULT_EMAIL: "${EMAIL}"
 
