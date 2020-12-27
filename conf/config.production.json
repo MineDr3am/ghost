@@ -1,13 +1,13 @@
 {
-    "url": "https://YOUR_DOMAIN",
+    "url": "https://ghost.czs.local",
     "server": {
       "port": 2368,
-      "host": "0.0.0.0"
+      "host": "hugolausenazpire.fr"
     },
     "database": {
       "client": "mysql",
       "connection": {
-        "host": "mariadb-ghost",
+        "host": "sqlghost",
         "user": "ghost",
         "port": "3306",
         "password": "nea0SQEF-pef_kux",
