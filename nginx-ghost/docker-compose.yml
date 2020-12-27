@@ -62,7 +62,7 @@ services:
     container_name: ghost
     restart: unless-stopped
     volumes:
-      - databaghost:/var/lib/ghost/content
+      - dataghost:/var/lib/ghost/content
       - ./conf/config.production.json:/var/lib/ghost/config.prodution.json:ro
     depends_on:
       - sqlghost
