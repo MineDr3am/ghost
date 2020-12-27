@@ -1,53 +1,48 @@
 version: "3"
 
-networks:
-  ghost_network:
 services:
-  ghost:
-    image: ghost:3-alpine
-    container_name: ghost
-    restart: always
+  traefik:
+    container_name: traefik-ghost
+    image: traefik:picodon
+    restart: unless-stopped
     ports:
-      - 2368:2368
-    environment:
-      url: "http://${DOMAIN_NAME}"
-      VIRTUAL_HOST: "${DOMAIN_NAME}"
-      LETSENCRYPT_HOST: "${DOMAIN_NAME}"
-      LETSENCRYPT_EMAIL: "${EMAIL}"
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
+      - 8080:8080
     volumes:
-      - conf:/etc/nginx/conf.d
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - certs:/etc/nginx/certs:ro
-      - dhparam:/etc/nginx/dhparam
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    labels:
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
-
-  nginx-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: letsencrypt
-    restart: always
-    volumes:
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      - certs:/etc/nginx/certs
-      - dhparam:/etc/nginx/dhparam:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./conf/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./conf/traefikdynamic:/traefikdynamic:ro
+      - ./logs/traefik.log:/etc/traefik/applog.log
+      - ./conf/acme.json:/acme.json
+  sqlghost:
+    container_name: mariadb-ghost
+    image: mariadb:bionic
+    restart: unless-stopped
+    volumes:
+      - datasqlghost:/var/lib/mysql
     environment:
-      DEFAULT_EMAIL: "${EMAIL}"
+      MYSQL_ROOT_PASSWORD: 'toor'
+      MYSQL_USER: ${MYSQLUSER}
+      MYSQL_PASSWORD: ${MYSQLPWD}
+      MYSQL_DATABASE: ${MYSQLDB}
 
-volumes:
-    conf:
-    vhost:
-    html:
-    certs:
-    dhparam:
+  ghost:
+    image: ghost:3
+    container_name: ghost
+    restart: unless-stopped
+    volumes:
+      - databaghost:/var/lib/ghost/content
+      - ./conf/config.production.json:/var/lib/ghost/config.prodution.json:ro
+    depends_on:
+      - sqlghost
+    labels:
+      traefik.enable: true
+      traefik.http.routers.ghost-https.entrypoints: websecure
+      traefik.http.routers.ghost-https.rule: Host(`ghost.czs.local`)
+      traefik.http.routers.ghost-https.middlewares: compression@file, security@file
+      traefik.http.routers.ghost-https.tls: true
+      traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
+  volumes:
+    datasqlghost:
+    dataghost:
