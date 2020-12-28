@@ -48,7 +48,7 @@ services:
       traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
     environment:
       # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mariadb
+      database__client: mysql
       database__connection__host: sqlghost
       database__connection__user: ${MYSQLUSER}
       database__connection__password: ${MYSQLPWD}
