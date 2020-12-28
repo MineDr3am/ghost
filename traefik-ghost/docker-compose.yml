@@ -1,9 +1,12 @@
 version: '3.6'
 
+network:
+  ghost_network:
+
 services:
   traefik:
     container_name: traefik
-    image: traefik:picodon
+    image: traefik
     restart: unless-stopped
     ports:
       - 80:80
@@ -29,8 +32,8 @@ services:
       MYSQL_DATABASE: ${MYSQLDB}
 
   ghost:
-    container_name: ghost
-    image: ghost:3
+    container_name: cmsghost
+    image: ghost:
     restart: unless-stopped
     volumes:
       - dataghost:/var/lib/ghost/content
