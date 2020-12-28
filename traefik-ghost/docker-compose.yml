@@ -33,7 +33,7 @@ services:
 
   ghost:
     container_name: cmsghost
-    image: ghost:
+    image: ghost
     restart: unless-stopped
     volumes:
       - dataghost:/var/lib/ghost/content
