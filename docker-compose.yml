@@ -1,7 +1,7 @@
 version: '3'
 
 network:
-  ghost_network:
+  ghost-network:
 
 services:
   traefik:
