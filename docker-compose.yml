@@ -52,7 +52,7 @@ services:
       database__client: mysql
       database__connection__host: sqlghost
       database__connection__user: ${MYSQLUSER}
-      database__connection__password: ${MYSQLPWD}
+      database__connection__password: ${MYSQLPASSWORD}
       database__connection__database: ${MYSQLDB}
       url: https://hugolausenazpire.fr
 
