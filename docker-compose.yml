@@ -1,6 +1,6 @@
 version: '3'
 
-network:
+networks:
   ghost-network:
 
 services:
