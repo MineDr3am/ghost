@@ -15,7 +15,7 @@ tls:
         - TLS_CHACHA20_POLY1305_SHA256
       curvePreferences:
         - CurveP521
-        - CurverP384
+        - CurveP384
 
 http:
   middlewares:
