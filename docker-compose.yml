@@ -19,7 +19,7 @@ services:
       - ./conf/acme.json:/acme.json
 
   sqlghost:
-    container_name: mariadb-ghost
+    container_name: mariamdb-ghost
     image: mariadb:bionic
     restart: unless-stopped
     volumes:
@@ -46,6 +46,15 @@ services:
       traefik.http.routers.ghost-https.middlewares: compression@file, security@file
       traefik.http.routers.ghost-https.tls: true
       traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mariadb
+      database__connection__host: sqlghost
+      database__connection__user: ${MYSQLUSER}
+      database__connection__password: ${MYSQLPWD}
+      database__connection__database: ${MYSQLDB}
+      url: https://hugolausenazpire.fr
+
 
 volumes:
   datasqlghost:
