@@ -1,8 +1,10 @@
-version: "3"
+version: '3'
 
+networks:
+  ghost_network:
 services:
   traefik:
-    container_name: traefik-ghost
+    container_name: traefik
     image: traefik:picodon
     restart: unless-stopped
     ports:
@@ -45,6 +47,7 @@ services:
       - ./conf/traefikdynamic:/traefikdynamic:ro
       - ./logs/traefik.log:/etc/traefik/applog.log
       - ./conf/acme.json:/acme.json
+
   sqlghost:
     container_name: mariadb-ghost
     image: mariadb:bionic
@@ -58,12 +61,12 @@ services:
       MYSQL_DATABASE: ${MYSQLDB}
 
   ghost:
+    container_name: cmsghost
     image: ghost:3
-    container_name: ghost
     restart: unless-stopped
     volumes:
       - dataghost:/var/lib/ghost/content
-      - ./conf/config.production.json:/var/lib/ghost/config.prodution.json:ro
+      - ./conf/config.production.json:/var/lib/ghost/config.production.json:ro
     depends_on:
       - sqlghost
     labels:
@@ -73,6 +76,7 @@ services:
       traefik.http.routers.ghost-https.middlewares: compression@file, security@file
       traefik.http.routers.ghost-https.tls: true
       traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
-  volumes:
-    datasqlghost:
-    dataghost:
+
+volumes:
+  datasqlghost:
+  dataghost:
