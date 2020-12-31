@@ -6,7 +6,7 @@ networks:
 services:
   traefik:
     container_name: traefik
-    image: traefik
+    image: traefik:picodon
     restart: unless-stopped
     ports:
       - 80:80
@@ -33,7 +33,7 @@ services:
 
   ghost:
     container_name: cmsghost
-    image: ghost
+    image: ghost:3
     restart: unless-stopped
     volumes:
       - dataghost:/var/lib/ghost/content

@@ -37,10 +37,9 @@ certificatesResolvers:
   letsencrypt:
     acme:
       email: pro@hugolausenazpire.fr
-        caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+#      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       caServer: https://acme-v02.api.letsencrypt.org/directory
       storage: acme.json
       keyType: EC256
       httpChallenge:
         entryPoint: web
-        
