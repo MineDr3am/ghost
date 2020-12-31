@@ -1,8 +1,8 @@
 {
-    "url": "https://ghost.czs.local",
+    "url": "https://hugolausenazpire.fr",
     "server": {
       "port": 2368,
-      "host": "hugolausenazpire.fr"
+      "host": "0.0.0.0"
     },
     "database": {
       "client": "mysql",
