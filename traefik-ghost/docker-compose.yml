@@ -32,7 +32,7 @@ services:
       MYSQL_DATABASE: ${MYSQLDB}
 
   ghost:
-    container_name: cmsghost
+    container_name: ghost
     image: ghost:3
     restart: unless-stopped
     volumes:
