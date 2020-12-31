@@ -47,7 +47,7 @@ services:
     environment:
       # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
       database__client: mysql
-      database__connection__host: db
+      database__connection__host: sqlghost
       database__connection__user: ${MYSQLUSER}
       database__connection__password: ${MYSQLPASSWORD}
       database__connection__database: ${MYSQLDB}
