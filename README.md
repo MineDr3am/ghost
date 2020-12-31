@@ -19,7 +19,7 @@ Aller dans le dossier:
 cd ghost/traefik-ghost
 ```
 
-2. Modifier le fichier d'environnements .env avec ses informations personnelles
+2. Modifier les fichiers avec ses informations personnelles
 ```
 vim .env
 ```
@@ -28,7 +28,7 @@ MYSQLUSER=YOUR_MYSQL_USER
 MYSQLPASSWORD=YOUR_MYSQL_PASSWORD
 MYSQLDB=YOUR_MYSQL_DATABASE
 ```
-3. Changer les informations personnelles dans les fichiers config.production.json et traefik.yml:
+Changer les informations personnelles dans les fichiers config.production.json et traefik.yml:
 ```
 vim conf/config.production.json
 ```
@@ -41,15 +41,15 @@ vim conf/traefik.yml
 ```
 email: YOUR_EMAIL
 ```
-4. Donner des droits spécifiques au dossier acme.json:
+3. Donner des droits spécifiques au dossier acme.json:
 ```
 chmod 600 conf/acme.json
 ```
-5. Prendre en compte le fichier .env:
+4. Prendre en compte le fichier .env:
 ```
 source .env
 ```
-6. Exécuter les containers:
+5. Exécuter les containers:
 ```
 docker-compose up -d
 ```
