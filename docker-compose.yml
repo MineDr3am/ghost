@@ -40,7 +40,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.ghost-https.entrypoints: websecure
-      traefik.http.routers.ghost-https.rule: Host(`hugolausenazpire.fr`)
+      traefik.http.routers.ghost-https.rule: Host(`YOUR_DOMAIN`)
       traefik.http.routers.ghost-https.middlewares: compression@file, security@file
       traefik.http.routers.ghost-https.tls: true
       traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
@@ -52,7 +52,7 @@ services:
       database__connection__password: ${MYSQLPASSWORD}
       database__connection__database: ${MYSQLDB}
       # this url value is just an example, and is likely wrong for your environment!
-      url: http://hugolausenazpire.fr
+      url: http://YOUR_DOMAIN
 
 volumes:
   datasqlghost:
