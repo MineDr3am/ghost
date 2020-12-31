@@ -1,4 +1,4 @@
-# Ghost seulement sur Docker Traefik ou Nginx et letsencrypt
+# Ghost tournant en container Docker avec Nginx ou Traefik
 
 Il s'agit d'un projet permettant de déployer un blog Ghost tournant grâce au proxy nginx et permettant l'automatisation de certificats, le tout tournant sur Docker.
 Résultat est présent sur _https://hugolausenazpire.fr_
@@ -92,4 +92,4 @@ docker-compose up -d
 - [X] Rendre les données persistantes avec MySQL
 - [x] Centraliser les variables d'environnements
 - [x] Le lancer avec Traefik
-- [ ] Centraliser nginx et traefik
+- [x] Centraliser nginx et traefik
