@@ -1,12 +1,9 @@
-version: '3'
-
-networks:
-  ghost-network:
+version: '3.6'
 
 services:
   traefik:
     container_name: traefik
-    image: traefik
+    image: traefik:picodon
     restart: unless-stopped
     ports:
       - 80:80
@@ -21,19 +18,19 @@ services:
 
   sqlghost:
     container_name: sqlghost
-    image: mariadb
+    image: mariadb:bionic
     restart: unless-stopped
     volumes:
       - datasqlghost:/var/lib/mysql
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_ROOT_PASSWORD: '1'
       MYSQL_USER: ${MYSQLUSER}
       MYSQL_PASSWORD: ${MYSQLPASSWORD}
       MYSQL_DATABASE: ${MYSQLDB}
 
   ghost:
     container_name: cmsghost
-    image: ghost
+    image: ghost:3
     restart: unless-stopped
     volumes:
       - dataghost:/var/lib/ghost/content
@@ -43,18 +40,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.ghost-https.entrypoints: websecure
-      traefik.http.routers.ghost-https.rule: Host(`ghost.czs.local`)
+      traefik.http.routers.ghost-https.rule: Host(`hugolausenazpire.fr`)
       traefik.http.routers.ghost-https.middlewares: compression@file, security@file
       traefik.http.routers.ghost-https.tls: true
       traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
-    environment:
-      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mysql
-      database__connection__host: sqlghost
-      database__connection__user: ${MYSQLUSER}
-      database__connection__password: ${MYSQLPASSWORD}
-      database__connection__database: ${MYSQLDB}
-      url: https://hugolausenazpire.fr
 
 volumes:
   datasqlghost:
