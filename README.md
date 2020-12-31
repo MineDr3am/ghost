@@ -35,7 +35,7 @@ vim conf/config.production.json
 ```
 "url": "https://YOUR_DOMAIN",
 ```
-- ```
+```
 vim conf/traefik.yml
 ```
 ```
