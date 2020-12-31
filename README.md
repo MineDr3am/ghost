@@ -41,6 +41,13 @@ vim conf/traefik.yml
 ```
 email: YOUR_EMAIL
 ```
+Modifier les informations dans le docker-compose.yml:
+```
+traefik.http.routers.ghost-https.rule: Host(`YOUR_DOMAIN`)
+...
+url: http://YOUR_DOMAIN
+
+```
 3. Donner des droits spécifiques au dossier acme.json:
 ```
 chmod 600 conf/acme.json
