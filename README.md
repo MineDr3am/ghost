@@ -29,13 +29,13 @@ MYSQLPASSWORD=YOUR_MYSQL_PASSWORD
 MYSQLDB=YOUR_MYSQL_DATABASE
 ```
 3. Changer les informations personnelles dans les fichiers config.production.json et traefik.yml:
-```
+- ```
 vim conf/config.production.json
 ```
 ```
 "url": "https://YOUR_DOMAIN",
 ```
-```
+- ```
 vim conf/traefik.yml
 ```
 ```
@@ -85,4 +85,4 @@ docker-compose up -d
 - [X] Rendre les données persistantes avec MySQL
 - [x] Centraliser les variables d'environnements
 - [x] Le lancer avec Traefik
-- [ ] Centraliser nginx et traefik 
+- [ ] Centraliser nginx et traefik
