@@ -1,11 +1,13 @@
 # Ghost seulement sur Docker Traefik ou Nginx et letsencrypt
 
-Il s'agit d'un projet permettant de déployer un blog Ghost tournant grace au proxy nginx et permettant l'automatisation de certificats, le tout tournant sur Docker.
+Il s'agit d'un projet permettant de déployer un blog Ghost tournant grâce au proxy nginx et permettant l'automatisation de certificats, le tout tournant sur Docker.
 Résultat est présent sur _https://hugolausenazpire.fr_
 **Un grand merci à [Fred](https://github.com/FredPi17) pour son aide sur ce projet**
 
 ## Nouvelles fonctionnalitées
 - Ajout du container Let's Encrypt permettant le TLS et donc du https
+- Les données sont maintenant persistantes avec un container Mariadb
+- Ajout du choix de proxy, soit Nginx soit Traefik
 
 ## Installation avec Traefik
 1. Cloner le projet:
