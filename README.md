@@ -52,11 +52,11 @@ url: http://YOUR_DOMAIN
 ```
 chmod 600 conf/acme.json
 ```
-4. Prendre en compte le fichier .env:
+5. Prendre en compte le fichier .env:
 ```
 source .env
 ```
-5. Exécuter les containers:
+6. Exécuter les containers:
 ```
 docker-compose up -d
 ```
