@@ -28,15 +28,28 @@ MYSQLUSER=YOUR_MYSQL_USER
 MYSQLPASSWORD=YOUR_MYSQL_PASSWORD
 MYSQLDB=YOUR_MYSQL_DATABASE
 ```
-3. Donner des droits spécifiques au dossier acme.json:
+3. Changer les informations personnelles dans les fichiers config.production.json et traefik.yml:
+```
+vim conf/config.production.json
+```
+```
+"url": "https://YOUR_DOMAIN",
+```
+```
+vim conf/traefik.yml
+```
+```
+email: YOUR_EMAIL
+```
+4. Donner des droits spécifiques au dossier acme.json:
 ```
 chmod 600 conf/acme.json
 ```
-4. Prendre en compte le fichier .env:
+5. Prendre en compte le fichier .env:
 ```
 source .env
 ```
-5. Exécuter les containers:
+6. Exécuter les containers:
 ```
 docker-compose up -d
 ```
@@ -72,3 +85,4 @@ docker-compose up -d
 - [X] Rendre les données persistantes avec MySQL
 - [x] Centraliser les variables d'environnements
 - [x] Le lancer avec Traefik
+- [ ] Centraliser nginx et traefik 
