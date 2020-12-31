@@ -18,7 +18,7 @@ services:
 
   sqlghost:
     container_name: sqlghost
-    image: mariadb:bionic
+    image: mariadb
     restart: unless-stopped
     volumes:
       - datasqlghost:/var/lib/mysql
