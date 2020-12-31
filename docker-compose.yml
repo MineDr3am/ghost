@@ -1,20 +1,26 @@
-version: '3.6'
+version: "3"
 
+networks:
+  ghost_network:
 services:
-  traefik:
-    container_name: traefik
-    image: traefik:picodon
-    restart: unless-stopped
+  ghost:
+    image: ghost:3-alpine
+    container_name: ghost
+    restart: always
     ports:
-      - 80:80
-      - 443:443
-      - 8080:8080 # used to have the traefik dashboard # used to have the traefik dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./conf/traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./conf/traefikdynamic:/traefikdynamic:ro
-      - ./logs/traefik.log:/etc/traefik/applog.log
-      - ./conf/acme.json:/acme.json
+      - 2368:2368
+    depends_on:
+      - mariadb-ghost
+    environment:
+      url: "http://${DOMAIN_NAME}"
+      VIRTUAL_HOST: "${DOMAIN_NAME}"
+      LETSENCRYPT_HOST: "${DOMAIN_NAME}"
+      LETSENCRYPT_EMAIL: "${EMAIL}"
+      database__client: mysql
+      database__connection__host: mariadb-ghost
+      database__connection__user: ${MYSQLUSER}
+      database__connection__password: ${MYSQLPASSWORD}
+      database__connection__database: ${MYSQLDB}
 
   mariadb-ghost:
     container_name: mariadb-ghost
@@ -28,32 +34,39 @@ services:
       MYSQL_PASSWORD: ${MYSQLPASSWORD}
       MYSQL_DATABASE: ${MYSQLDB}
 
-  ghost:
-    container_name: ghost
-    image: ghost:3
-    restart: unless-stopped
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
-      - dataghost:/var/lib/ghost/content
-      - ./conf/config.production.json:/var/lib/ghost/config.production.json:ro
-    depends_on:
-      - mariadb-ghost
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - dhparam:/etc/nginx/dhparam
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     labels:
-      traefik.enable: true
-      traefik.http.routers.ghost-https.entrypoints: websecure
-      traefik.http.routers.ghost-https.rule: Host(`YOUR_DOMAIN`)
-      traefik.http.routers.ghost-https.middlewares: compression@file, security@file
-      traefik.http.routers.ghost-https.tls: true
-      traefik.http.routers.ghost-https.tls.certresolver: "letsencrypt"
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+
+  nginx-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    restart: always
+    volumes:
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - dhparam:/etc/nginx/dhparam:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
-      database__client: mysql
-      database__connection__host: mariadb-ghost
-      database__connection__user: ${MYSQLUSER}
-      database__connection__password: ${MYSQLPASSWORD}
-      database__connection__database: ${MYSQLDB}
-      # this url value is just an example, and is likely wrong for your environment!
-      url: http://YOUR_DOMAIN
+      DEFAULT_EMAIL: "${EMAIL}"
 
 volumes:
-  datasqlghost:
-  dataghost:
+    conf:
+    vhost:
+    html:
+    certs:
+    dhparam:
